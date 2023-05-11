@@ -1,4 +1,4 @@
-package main;
+package modelo.main;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

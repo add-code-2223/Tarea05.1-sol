@@ -1,4 +1,4 @@
-package main;
+package modelo.main;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -22,10 +22,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import main.CreateNewDeptDialog.TIPO_EDICION;
 import modelo.Departamento;
 import modelo.exceptions.DuplicateInstanceException;
 import modelo.exceptions.InstanceNotFoundException;
+import modelo.main.CreateNewDeptDialog.TIPO_EDICION;
 import modelo.servicio.departamento.IServicioDepartamento;
 import modelo.servicio.departamento.ServicioDepartamento;
 
@@ -231,11 +231,11 @@ public class DeptWindow extends JFrame {
 
 			if (createDialog.getTipo() == TIPO_EDICION.CREAR) {
 				try {
-					long oid = departamentoServicio.create(departamentoACrear);
-					if (oid == -1) {
+					boolean exito = departamentoServicio.create(departamentoACrear);
+					if (!exito) {
 						addMensaje(true, "No se ha creado correctamete el departamento");
 					} else {
-						addMensaje(true, " El departamento no se ha creado correctamente");
+						addMensaje(true, " El departamento se ha creado correctamente");
 					}
 				} catch (DuplicateInstanceException die) {
 					addMensaje(true, "Ya existe un departamento con ese id. No se ha podido crear.");
@@ -262,13 +262,15 @@ public class DeptWindow extends JFrame {
 		}
 	}
 
-
 	private void getAllDepartamentos() {
 		List<Departamento> departamentos = departamentoServicio.findAll();
 		addMensaje(true, "Se han recuperado: " + departamentos.size() + " departamentos");
 		DefaultListModel<Departamento> defModel = new DefaultListModel<>();
+		for (Departamento departamento : departamentos) {
+			defModel.addElement(departamento);
+		}
 
-		defModel.addAll(departamentos);
+		// defModel.addAll(departamentos);
 
 		JListAllDepts.setModel(defModel);
 

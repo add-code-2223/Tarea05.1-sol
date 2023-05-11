@@ -16,7 +16,7 @@ public interface IDepartamentoDao extends IGenericDao<Departamento>{
     
 
 	
-	public boolean exists(Integer dept);
+	
 	
 	
 	

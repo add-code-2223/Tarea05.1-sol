@@ -24,7 +24,6 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.Departamento;
 import modelo.exceptions.DuplicateInstanceException;
-import modelo.exceptions.InstanceNotFoundException;
 import modelo.main.CreateNewDeptDialog.TIPO_EDICION;
 import modelo.servicio.departamento.IServicioDepartamento;
 import modelo.servicio.departamento.ServicioDepartamento;
@@ -249,7 +248,7 @@ public class DeptWindow extends JFrame {
 					if (!exito) {
 						addMensaje(true, "No se ha editado correctamete el departamento");
 					} else {
-						addMensaje(true, " El departamento no se ha actualizado correctamente");
+						addMensaje(true, " El departamento se ha actualizado correctamente");
 					}
 
 				} catch (Exception ex) {

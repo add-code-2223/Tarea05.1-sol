@@ -270,10 +270,10 @@ public class DepartamentoEXistDao extends AbstractGenericDao<Departamento> imple
 
 				String xml_string_dept = toXMLString(entity);
 				if (xml_string_dept != "") {
-					CompiledExpression compiled = xqs.compile("update replace " + "//DEP_ROW[DEPT_NO="
+					CompiledExpression compiled = xqs.compile("update replace " + "doc(\"departamentos.xml\")//DEP_ROW[DEPT_NO="
 							+ entity.getDeptno() + "] with " + xml_string_dept);
 
-					ResourceSet result = xqs.execute(compiled);
+					xqs.execute(compiled);
 					exito = true;
 				}
 
@@ -295,14 +295,14 @@ public class DepartamentoEXistDao extends AbstractGenericDao<Departamento> imple
 				dataSource.getUser(), dataSource.getPwd())) {
 
 			XQueryService xqs = (XQueryService) col.getService("XQueryService", "1.0");
-			// xqs.setProperty("indent", "yes");
+			
 
 			String xml_string_dept = toXMLString(entity);
 			if (xml_string_dept != "") {
 				CompiledExpression compiled = xqs
-						.compile("update delete " + "//DEP_ROW[DEPT_NO=" + entity.getDeptno() + "]");
+						.compile("update delete " + "doc(\"departamentos.xml\")//DEP_ROW[DEPT_NO=" + entity.getDeptno() + "]");
 
-				ResourceSet result = xqs.execute(compiled);
+				xqs.execute(compiled);
 				exito = true;
 			}
 
@@ -326,7 +326,7 @@ public class DepartamentoEXistDao extends AbstractGenericDao<Departamento> imple
 			XQueryService xqs = (XQueryService) col.getService("XQueryService", "1.0");
 			xqs.setProperty("indent", "yes");
 
-			CompiledExpression compiled = xqs.compile("//DEP_ROW");
+			CompiledExpression compiled = xqs.compile("doc(\"departamentos.xml\")//DEP_ROW");
 			ResourceSet result = xqs.execute(compiled);
 
 			ResourceIterator i = result.getIterator();
